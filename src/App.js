@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes} from "react-router-dom";
+import RequireAuth from "./components/RequireAuth";
+import AuthLayout from "./components/AuthLayout";
+import Layout from "./components/Layout";
+import React from "react";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Clients from "./pages/Clients";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+          <Route path="/" element={<AuthLayout/>}>
+              <Route path="/clients" element={<Clients/>}/>
+              <Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>
+                  <Route index element={<Home />} />
+              </Route>
+          </Route>
+          <Route path="/login" element={<Layout/>}>
+              <Route index element={<Login/>} />
+          </Route>
+      </Routes>
   );
 }
 
