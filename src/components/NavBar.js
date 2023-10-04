@@ -1,16 +1,32 @@
-import React from 'react';
-import {Container, Nav, Navbar} from "react-bootstrap";
+import React, {useContext} from 'react';
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
+import {AuthContext} from "../index";
+import {Link} from "react-router-dom";
 
 const NavBar = () => {
+    const {user} = useContext(AuthContext);
+
+    const logout = () => {
+        user.setId();
+        user.setEmail('');
+        user.setRoles([]);
+        user.setIsAuth(false)
+        localStorage.clear();
+    }
+
     return (
         <Navbar bg="dark" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                <Link to={"/"}>Home</Link>
                 <Nav className="me-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
-                </Nav>
+                    <Link to={"/"}>Home</Link>
+                    <Link to={"/clients"}>Clients</Link>
+                    { user.isAuth ?
+                    <Button onClick={() => logout()}>Logout</Button>
+                    :
+                    null
+                    }
+                    </Nav>
             </Container>
         </Navbar>
     );

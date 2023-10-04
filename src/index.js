@@ -1,21 +1,24 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AuthProvider} from "./context/AuthProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserStore from "./store/UserStore";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+export const AuthContext = createContext({});
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <AuthProvider>
+          <AuthContext.Provider value={{
+              user: new UserStore()
+          }}>
               <Routes>
                   <Route path="/*" element={<App />} />
               </Routes>
-          </AuthProvider>
+          </AuthContext.Provider>
       </BrowserRouter>
   </React.StrictMode>
 );

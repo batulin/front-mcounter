@@ -1,17 +1,46 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import {Navigate, Outlet} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../index";
+import {check} from "../api/userApi";
+import {Spinner} from "react-bootstrap";
+import {observer} from "mobx-react-lite";
 
-const RequireAuth = ({ allowedRoles }) => {
-    const { auth } = useAuth();
-    const location = useLocation();
+const RequireAuth = observer(({ allowedRoles }) => {
+    const {user} = useContext(AuthContext)
+    const [loading, setLoading] = useState(true)
+
+
+    useEffect(() => {
+        check()
+            .then(data => {
+            user.setId(data.id);
+            user.setEmail(data.email);
+            user.setRoles(data.roles);
+            user.setIsAuth(true);
+            console.log(user);
+        })
+            .catch((e) => {
+                if (e.response.status === 401) {
+                    user.setId();
+                    user.setEmail('');
+                    user.setRoles([]);
+                    user.setIsAuth(false);
+                    localStorage.clear();
+                    console.log(user.roles)
+                }
+            })
+            .finally(() => setLoading(false))
+    }, [])
+
+    if (loading) {
+        return <Spinner animation={"grow"}/>
+    }
 
     return (
-        auth?.roles?.find(role => allowedRoles?.includes(role))
+        user.roles.find(role => allowedRoles.includes(role))
             ? <Outlet />
-            : auth?.email
-                ? <Navigate to="/clients" state={{ from: location }} replace />
-                : <Navigate to="/login" state={{ from: location }} replace />
+            : <Navigate to="/login" replace />
     );
-}
+})
 
 export default RequireAuth;

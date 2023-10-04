@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import {$host} from "../api";
 import jwtDecode from "jwt-decode";
+import {AuthContext} from "../index";
+import {observer} from "mobx-react-lite";
 
-const Login = () => {
-    const { setAuth } = useAuth();
+const Login = observer(() => {
+    const {user} = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,12 +19,11 @@ const Login = () => {
             const {data} = await $host.post('/auth/login', {"username": username, "password": password})
 
             localStorage.setItem("token", data.token);
-            const id = (jwtDecode(data.token).id);
-            const roles = (jwtDecode(data.token).roles);
-            const email = (jwtDecode(data.token).username);
-
-            setAuth({ email, roles, id });
-            navigate("/");
+            user.setId(jwtDecode(data.token).id);
+            user.setRoles(jwtDecode(data.token).roles);
+            user.setEmail(jwtDecode(data.token).username);
+            user.setIsAuth(true);
+            navigate("/clients");
         } catch (err) {
         }
     }
@@ -60,6 +60,6 @@ const Login = () => {
             </Card>
         </Container>
     );
-};
+});
 
 export default Login;
