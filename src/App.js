@@ -9,7 +9,7 @@ import Clients from "./pages/Clients";
 
 function App() {
   return (
-      <Routes>
+    <Routes>
           <Route path="/" element={<AuthLayout/>}>
               <Route path="/clients" element={<Clients/>}/>
               <Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>

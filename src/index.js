@@ -6,14 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserStore from "./store/UserStore";
+import SidebarIsOpen from "./store/SidebarIsOpen";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-export const AuthContext = createContext({});
+export const AuthContext = createContext(null);
 root.render(
   <React.StrictMode>
       <BrowserRouter>
           <AuthContext.Provider value={{
-              user: new UserStore()
+              user: new UserStore(),
+              sidebar: new SidebarIsOpen()
           }}>
               <Routes>
                   <Route path="/*" element={<App />} />

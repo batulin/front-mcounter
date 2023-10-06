@@ -26,7 +26,6 @@ const RequireAuth = observer(({ allowedRoles }) => {
                     user.setRoles([]);
                     user.setIsAuth(false);
                     localStorage.clear();
-                    console.log(user.roles)
                 }
             })
             .finally(() => setLoading(false))

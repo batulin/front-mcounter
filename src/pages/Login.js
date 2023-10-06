@@ -14,7 +14,7 @@ const Login = observer(() => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
         try {
             const {data} = await $host.post('/auth/login', {"username": username, "password": password})
 
@@ -23,7 +23,7 @@ const Login = observer(() => {
             user.setRoles(jwtDecode(data.token).roles);
             user.setEmail(jwtDecode(data.token).username);
             user.setIsAuth(true);
-            navigate("/clients");
+            navigate("/");
         } catch (err) {
         }
     }
