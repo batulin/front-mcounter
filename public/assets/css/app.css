@@ -53,3 +53,18 @@
 .flex-item a.notPayed {
   background-color: #ff253a;
 }
+
+h2 {
+  margin-top: 15px !important;
+  margin-bottom: 20px !important;
+}
+
+.sb-sidenav-menu a {
+  padding-bottom: 20px;
+  text-decoration: none;
+  color: #fff;
+}
+.sb-sidenav-menu a svg {
+  margin-right: 20px;
+}
+

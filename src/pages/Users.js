@@ -1,18 +1,17 @@
 import React, {useContext, useEffect} from 'react';
 import {AuthContext} from "../index";
-import {fetchClients} from "../api/clientApi";
 import {useNavigate} from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import {observer} from "mobx-react-lite";
-import ClientList from "../components/client/ClientList";
+import {fetchUsers} from "../api/usersApi";
+import UsersList from "../components/users/UsersList";
 
-const Clients = observer(() => {
-    const { client, user } = useContext(AuthContext);
+const Users = observer(() => {
+    const { users, user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchClients().then(data => {
-            client.setClients(data.items)
+        fetchUsers().then(data => {
+            users.setUsers(data)
         }).catch((e) => {
                 if (e.response.status === 401) {
                     user.setId();
@@ -27,10 +26,10 @@ const Clients = observer(() => {
     }, [])
     return (
         <div>
-            <h2>Clients</h2>
-            <ClientList />
+            <h2>Users</h2>
+            <UsersList />
         </div>
     );
 });
 
-export default Clients;
+export default Users;

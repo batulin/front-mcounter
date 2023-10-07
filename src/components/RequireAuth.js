@@ -17,7 +17,6 @@ const RequireAuth = observer(({ allowedRoles }) => {
             user.setEmail(data.email);
             user.setRoles(data.roles);
             user.setIsAuth(true);
-            console.log(user);
         })
             .catch((e) => {
                 if (e.response.status === 401) {

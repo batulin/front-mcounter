@@ -7,6 +7,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserStore from "./store/UserStore";
 import SidebarIsOpen from "./store/SidebarIsOpen";
+import ClientStore from "./store/ClientStore";
+import UsersStore from "./store/UsersStore";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 export const AuthContext = createContext(null);
@@ -15,7 +17,9 @@ root.render(
       <BrowserRouter>
           <AuthContext.Provider value={{
               user: new UserStore(),
-              sidebar: new SidebarIsOpen()
+              sidebar: new SidebarIsOpen(),
+              client: new ClientStore(),
+              users: new UsersStore()
           }}>
               <Routes>
                   <Route path="/*" element={<App />} />
