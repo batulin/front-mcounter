@@ -14,15 +14,20 @@ function App() {
   return (
     <Routes>
           <Route path="/" element={<AuthLayout/>}>
-              <Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>
-                  <Route path="/clients" element={<Clients/>}/>
-              </Route>
-              <Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>
-                  <Route index element={<Home />} />
-              </Route>
-              <Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>
-                  <Route path={"/users"} element={<Users />} />
-              </Route>
+              {/*<Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>*/}
+              {/*    <Route path="/clients" element={<Clients/>}/>*/}
+              {/*</Route>*/}
+              {/*<Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>*/}
+              {/*    <Route index element={<Home />} />*/}
+              {/*</Route>*/}
+              {/*<Route element={<RequireAuth allowedRoles={['ROLE_USER']}/>}>*/}
+              {/*    <Route path={"/users"} element={<Users />} />*/}
+              {/*</Route>*/}
+              <Route index element={<Home/>} />
+
+              <Route path="/client" element={<Clients/>} />
+
+
           </Route>
           <Route path="/login" element={<Layout/>}>
               <Route index element={<Login/>} />

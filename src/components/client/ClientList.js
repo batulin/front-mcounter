@@ -8,11 +8,24 @@ const ClientList = observer(() => {
     const {client} = useContext(AuthContext);
 
     return (
-        <>
+        <Table bordered hover>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Birth Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
             {client.clients.map(client =>
                 <ClientItem key={client.id} client={client}/>
             )}
-        </>
+        </tbody>
+    </Table>
     );
 });
 

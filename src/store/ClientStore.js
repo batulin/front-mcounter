@@ -14,4 +14,14 @@ export default class ClientStore {
     get clients() {
         return this._clients
     }
+
+    addClient(object) {
+        this._clients.push(object)
+    }
+
+    deleteClient(id) {
+
+        this._clients = this._clients.filter((client) => client.id != id)
+
+    }
 }

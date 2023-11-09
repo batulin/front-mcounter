@@ -64,6 +64,10 @@
   --bs-body-bg: #fff;
 }
 
+html {
+  font-size: 14px;
+}
+
 *,
 *::before,
 *::after {
